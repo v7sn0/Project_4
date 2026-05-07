@@ -9,6 +9,9 @@ class Inquiry(models.Model):
     qty = models.IntegerField()
     custom_request = models.CharField(255)
     date_of_inquiry = models.DateField((""), auto_now=False, auto_now_add=False)
+    def __str__(self):
+        return self.customer_id
+
 
 
 class Product(models.Model):
@@ -16,3 +19,5 @@ class Product(models.Model):
     item = models.CharField(100)
     description = models.CharField(255)
     availability = models.BooleanField(default=False)
+    def __str__(self):
+        return self.supplier_id
