@@ -34,7 +34,7 @@ A website that allows the suppliers to list their products, where then the busin
 ### Task List ###
 - [ ] Completing the models.
 - [ ] Completing the frontend and the backend.
-- [x] Deploying the project.
+- [ ] Deploying the project.
 
 ### Credits ###
 
