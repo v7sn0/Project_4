@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  {% block head %}{% endblock head %}
+</head>
+<body>
+
+  <nav><a href="/">Home</a>
+
+  {% if user.is_authenticated %}
+    <a href="/customers/create">Create Inquiry</a>
+    <form method="POST" action="/auth/logout/">
+      {% csrf_token %}
+      <button>Logout</button>
+    </form>
+  {% endif %}
+
+  </nav>
+  {% block content %}{% endblock content %}
+</body>
+</html>
