@@ -78,7 +78,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "b2b",
         "USER": "postgres",
-        "PASSWORD": "123",
+        "PASSWORD": "1234",
         "HOST": "localhost",
         "PORT": "5432",
     }
@@ -120,3 +120,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = "static/"
+
+
+# Auth redirects
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "login"
