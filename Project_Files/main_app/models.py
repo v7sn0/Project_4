@@ -1,7 +1,17 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 
 # Create your models here.
+
+
+# class CustomUser(AbstractUser):
+#     class Roles(models.TextChoices):
+#         CUSTOMER = "Customer", "Customer"
+#         SUPPLIER = "Supplier", "Supplier"
+
+#     role = models.CharField(
+#         max_length=20, choices=Roles.choices, default=Roles.CUSTOMER
+#     )
 
 
 class Inquiry(models.Model):
