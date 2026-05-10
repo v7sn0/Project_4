@@ -1,5 +1,12 @@
 from django import forms
-from .models import Inquiry, Product
+from django.contrib.auth.forms import UserCreationForm
+from .models import Inquiry, Product, CustomUser
+
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = CustomUser
+        fields = ("username", "email", "role")
 
 
 class InquiryForm(forms.ModelForm):

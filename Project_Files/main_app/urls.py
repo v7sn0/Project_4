@@ -4,9 +4,12 @@ from . import views
 
 urlpatterns = [
     # path("", views.homepage),
+    # Supplier urls
     path("sign-up/", views.SignUpView.as_view()),
     path("suppliers/create", views.UploadProductView.as_view()),
+    path("listed-products", views.UploadedProductsList.as_view()),
+    path("suppliers/<int:pk>/update", views.UpdateProductView.as_view()),
     # Customer urls
-    path("home-customer", views.ListProductsView.as_view()),
+    path("products", views.ListProductsView.as_view()),
     path("customers/create", views.CreateInquiryView.as_view()),
 ]
