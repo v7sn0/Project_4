@@ -67,3 +67,8 @@ class UploadedProductsList(ListView):
     model = Product
     template_name = "home-supplier.html"
     context_object_name = "products"
+
+class DeleteProduct(DeleteView):
+    model= Product
+    success_url="/listed-products"
+
