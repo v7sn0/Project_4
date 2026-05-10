@@ -38,3 +38,9 @@ class UploadProductView(CreateView):
     form_class = ProductForm
     template_name = "suppliers/product-form.html"
     success_url = "/"
+
+
+class ListProductsView(ListView):
+    model = Product
+    template_name = "home-customer.html"
+    context_object_name = "products"

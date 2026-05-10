@@ -6,6 +6,12 @@
 
   <h1>Homepage</h1>
 
+  <h3>All product</h3>
+
+  {% for product in products %}
+    <p>Product: {{product.item}}</p>
+  {% endfor %}
+
 {% endblock content %}
 
 
