@@ -4,18 +4,18 @@ from django.contrib.auth.models import User, AbstractUser
 # Create your models here.
 
 
-# class CustomUser(AbstractUser):
-#     class Roles(models.TextChoices):
-#         CUSTOMER = "Customer", "Customer"
-#         SUPPLIER = "Supplier", "Supplier"
+class CustomUser(AbstractUser):
+    class Roles(models.TextChoices):
+        CUSTOMER = "Customer", "Customer"
+        SUPPLIER = "Supplier", "Supplier"
 
-#     role = models.CharField(
-#         max_length=20, choices=Roles.choices, default=Roles.CUSTOMER
-#     )
+    role = models.CharField(
+        max_length=20, choices=Roles.choices, default=Roles.CUSTOMER
+    )
 
 
 class Inquiry(models.Model):
-    customer_id = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    customer_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False)
     qty = models.IntegerField()
     custom_request = models.TextField(max_length=500)
     date_of_inquiry = models.DateField((""), auto_now=True)
@@ -25,7 +25,7 @@ class Inquiry(models.Model):
 
 
 class Product(models.Model):
-    supplier_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    supplier_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     item = models.CharField(max_length=255)
     description = models.TextField(max_length=500)
     availability = models.BooleanField(default=False)
