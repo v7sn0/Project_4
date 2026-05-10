@@ -4,7 +4,7 @@ from django.shortcuts import render
 from .models import Inquiry, Product, CustomUser
 from .forms import InquiryForm, ProductForm, CustomUserCreationForm
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from django.views.generic import (
     ListView,
@@ -28,7 +28,10 @@ class SignUpView(CreateView):
     model = CustomUser
 
 
-class CreateInquiryView(LoginRequiredMixin, CreateView):
+class CreateInquiryView(UserPassesTestMixin, CreateView):
+    def test_func(self):
+        return self.request.user.role == "Customer" or self.request.user.is_superuser
+
     model = Inquiry
     form_class = InquiryForm
     template_name = "customers/inquiry-form.html"
@@ -39,7 +42,11 @@ class CreateInquiryView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class UploadProductView(CreateView):
+class UploadProductView(UserPassesTestMixin, CreateView):
+
+    def test_func(self):
+        return self.request.user.role == "Supplier" or self.request.user.is_superuser
+
     model = Product
     form_class = ProductForm
     template_name = "suppliers/product-form.html"
@@ -50,25 +57,41 @@ class UploadProductView(CreateView):
         return super().form_valid(form)
 
 
-class UpdateProductView(UpdateView):
+class UpdateProductView(UserPassesTestMixin, UpdateView):
+
+    def test_func(self):
+        return self.request.user.role == "Supplier" or self.request.user.is_superuser
+
     model = Product
     form_class = ProductForm
     template_name = "suppliers/product-form.html"
     success_url = "/listed-products"  # Will be changed
 
 
-class ListProductsView(ListView):
+class ListProductsView(UserPassesTestMixin, ListView):
+
+    def test_func(self):
+        return self.request.user.role == "Customer" or self.request.user.is_superuser
+
     model = Product
     template_name = "home-customer.html"
     context_object_name = "products"
 
 
-class UploadedProductsList(ListView):
+class UploadedProductsList(UserPassesTestMixin, ListView):
+
+    def test_func(self):
+        return self.request.user.role == "Supplier" or self.request.user.is_superuser
+
     model = Product
     template_name = "home-supplier.html"
     context_object_name = "products"
 
-class DeleteProduct(DeleteView):
-    model= Product
-    success_url="/listed-products"
 
+class DeleteProduct(UserPassesTestMixin, DeleteView):
+
+    def test_func(self):
+        return self.request.user.role == "Supplier" or self.request.user.is_superuser
+
+    model = Product
+    success_url = "/listed-products"
