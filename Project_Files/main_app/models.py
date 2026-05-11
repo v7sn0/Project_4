@@ -29,10 +29,12 @@ class Inquiry(models.Model):
         CustomUser, on_delete=models.CASCADE, null=False, related_name="inquiries"
     )
     item_id = models.ForeignKey(Product, on_delete=models.CASCADE, null=False)
-    title = models.TextField(max_length=50)
+    title = models.CharField(max_length=50)
     qty = models.IntegerField()
     custom_request = models.TextField(max_length=500)
     date_of_inquiry = models.DateField((""), auto_now=True)
+    accept = models.BooleanField(default=False)
+    acknowledgment = models.TextField(max_length=500, null=True)
 
     def __str__(self):
         return self.customer_id

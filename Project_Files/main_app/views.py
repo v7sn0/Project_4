@@ -1,8 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
 from .models import Inquiry, Product, InquiryStatus, CustomUser
-from .forms import InquiryForm, ProductForm, CustomUserCreationForm
+from .forms import (
+    InquiryForm,
+    ProductForm,
+    InquiryStatusForm,
+    CustomUserCreationForm,
+    InquiryUpdate,
+)
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
@@ -12,6 +18,7 @@ from django.views.generic import (
     DeleteView,
     UpdateView,
     DetailView,
+    View,
 )
 
 # Create your views here.
@@ -109,8 +116,22 @@ class ShowInquiresView(ListView):
     context_object_name = "inquires"
 
 
-# class RequestDetailsView(DetailView):
-#     model =
+class ResolveInquiryView(CreateView):
+    model = InquiryStatus
+    form_class = InquiryStatusForm
+    template_name = "suppliers/inquires-status-from.html"
+    success_url = "suppliers/customers-inquires"
+
+
+def toggle_inquiry(request, pk):
+    inquiry = Inquiry.objects.get(pk=pk)
+    if request.method == "POST":
+        form = InquiryUpdate(request.POST, instance=inquiry)
+        if form.is_valid():
+            form.save()
+            return redirect("/suppliers/customer-inquires")
+    form = InquiryUpdate(instance=inquiry)
+    return render(request, "suppliers/inquires-status-from.html", {"form": form})
 
 
 # def toggle_inquiry(request, id):
