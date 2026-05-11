@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h1>Welcome to B2B Marketplace</h1>
+
+  {% if user.is_authenticated %}
+    <p>Hello, {{ user.username }}! You are logged in as a {{ user.role }}.</p>
+
+    {% if user.role == "Customer" %}
+      <a href="/products/">Browse Products</a>
+    {% endif %}
+
+    {% if user.role == "Supplier" %}
+      <a href="/listed-products">My Products</a>
+    {% endif %}
+
+  {% else %}
+    <p>Please <a href="/auth/login">login</a> or <a href="/sign-up/">sign up</a> to get started.</p>
+  {% endif %}
+
+{% endblock content %}

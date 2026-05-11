@@ -123,13 +123,27 @@ class ResolveInquiryView(CreateView):
     success_url = "suppliers/customers-inquires"
 
 
+class CustomerRequestsHistoryView(UserPassesTestMixin, ListView):
+
+    def test_func(self):
+        return self.request.user.role == "Customer" or self.request.user.is_superuser
+
+    model = Inquiry
+    template_name = "customers/requests-history.html"
+    context_object_name = "inquiries"
+
+
+    def get_queryset(self):
+        return Inquiry.objects.filter(customer_id=self.request.user)
+
+
 def toggle_inquiry(request, pk):
     inquiry = Inquiry.objects.get(pk=pk)
     if request.method == "POST":
         form = InquiryUpdate(request.POST, instance=inquiry)
         if form.is_valid():
             form.save()
-            return redirect("/suppliers/customer-inquires")
+            return redirect("/suppliers/customers-inquires")
     form = InquiryUpdate(instance=inquiry)
     return render(request, "suppliers/inquires-status-from.html", {"form": form})
 
