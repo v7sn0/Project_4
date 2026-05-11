@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block head %}{% endblock head %}\
+
+{% block content %}
+
+  <h1>Customers Inquires</h1>
+
+    <h1>Pending Queries</h1>
+
+{% for Inquiry in inquires %}
+
+
+  {% if not Inquiry.accept %}
+
+  <div>
+      <h3>{{Inquiry.title}}</h3>
+      <p>{{Inquiry.qty}}</p>
+      <a href="/suppliers/inquiry/{{Inquiry.pk}}">View Details</a>
+    </div>
+  {% endif %}
+
+  {% endfor %}
+<hr>
+  <h1>Resolved Inquiries</h1>
+
+  {% for Inquiry in inquires %}
+{% if Inquiry.accept %}
+<div>
+      <h3>{{Inquiry.title}}</h3>
+      <p>{{Inquiry.qty}}</p>
+      <a href="/suppliers/inquiry/{{Inquiry.pk}}">View Details</a>
+    </div>
+  {% endif %}
+  {% endfor %}
+
+{% endblock content %}

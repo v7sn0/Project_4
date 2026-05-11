@@ -1,8 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 
-from .models import Inquiry, Product, CustomUser
-from .forms import InquiryForm, ProductForm, CustomUserCreationForm
+from .models import Inquiry, Product, InquiryStatus, CustomUser
+from .forms import (
+    InquiryForm,
+    ProductForm,
+    InquiryStatusForm,
+    CustomUserCreationForm,
+    InquiryUpdate,
+)
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
@@ -12,6 +18,7 @@ from django.views.generic import (
     DeleteView,
     UpdateView,
     DetailView,
+    View,
 )
 
 # Create your views here.
@@ -39,7 +46,8 @@ class CreateInquiryView(UserPassesTestMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.customer_id = self.request.user
-        # form.instance.item_id = self.kwargs["pk"] needs to be changed
+        form.instance.item_id = Product.objects.get(pk=self.kwargs.get("pk"))
+
         return super().form_valid(form)
 
 
@@ -102,5 +110,29 @@ class DeleteProduct(UserPassesTestMixin, DeleteView):
     success_url = "/listed-products"
 
 
-def toggle_inquiry(request, id):
-    pass
+class ShowInquiresView(ListView):
+    model = Inquiry
+    template_name = "suppliers/customers-inquires.html"
+    context_object_name = "inquires"
+
+
+class ResolveInquiryView(CreateView):
+    model = InquiryStatus
+    form_class = InquiryStatusForm
+    template_name = "suppliers/inquires-status-from.html"
+    success_url = "suppliers/customers-inquires"
+
+
+def toggle_inquiry(request, pk):
+    inquiry = Inquiry.objects.get(pk=pk)
+    if request.method == "POST":
+        form = InquiryUpdate(request.POST, instance=inquiry)
+        if form.is_valid():
+            form.save()
+            return redirect("/suppliers/customer-inquires")
+    form = InquiryUpdate(instance=inquiry)
+    return render(request, "suppliers/inquires-status-from.html", {"form": form})
+
+
+# def toggle_inquiry(request, id):
+#     pass
