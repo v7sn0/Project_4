@@ -10,6 +10,17 @@
 
   {% for product in products %}
     <p>Product: {{product.item}}</p>
+
+    {% comment %} {% if product in  user.inquiries%}
+      <button disabled> Enquired Already</button>
+      {% else %}
+    <button>Enquire</button>
+    {% endif %}{% endcomment %}
+
+    <a href="/customers/{{product.pk}}/create">Create</a>
+
+
+
   {% endfor %}
 
 {% endblock content %}
