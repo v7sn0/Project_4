@@ -39,6 +39,7 @@ class CreateInquiryView(UserPassesTestMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.customer_id = self.request.user
+        # form.instance.item_id = self.kwargs["pk"] needs to be changed
         return super().form_valid(form)
 
 
@@ -77,6 +78,10 @@ class ListProductsView(UserPassesTestMixin, ListView):
     template_name = "home-customer.html"
     context_object_name = "products"
 
+    # def get_context_data(self, **kwargs):
+    #     print(self.request.user.inquiries)
+    #     return super().get_context_data(**kwargs)
+
 
 class UploadedProductsList(UserPassesTestMixin, ListView):
 
@@ -95,3 +100,7 @@ class DeleteProduct(UserPassesTestMixin, DeleteView):
 
     model = Product
     success_url = "/listed-products"
+
+
+def toggle_inquiry(request, id):
+    pass
