@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 
-from .models import Inquiry, Product, CustomUser
+from .models import Inquiry, Product, InquiryStatus, CustomUser
 from .forms import InquiryForm, ProductForm, CustomUserCreationForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -39,7 +39,8 @@ class CreateInquiryView(UserPassesTestMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.customer_id = self.request.user
-        # form.instance.item_id = self.kwargs["pk"] needs to be changed
+        form.instance.item_id = Product.objects.get(pk=self.kwargs.get("pk"))
+
         return super().form_valid(form)
 
 
@@ -102,5 +103,15 @@ class DeleteProduct(UserPassesTestMixin, DeleteView):
     success_url = "/listed-products"
 
 
-def toggle_inquiry(request, id):
-    pass
+class ShowInquiresView(ListView):
+    model = Inquiry
+    template_name = "suppliers/customers-inquires.html"
+    context_object_name = "inquires"
+
+
+# class RequestDetailsView(DetailView):
+#     model =
+
+
+# def toggle_inquiry(request, id):
+#     pass

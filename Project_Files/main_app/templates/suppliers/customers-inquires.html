@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block head %}{% endblock head %}\
+
+{% block content %}
+
+  <h1>Customers Inquires</h1>
+
+  {% for Inquiry in inquires %}
+
+    <h3>{{Inquiry.title}}</h3>
+    <p>{{Inquiry.qty}}</p>
+
+  {% endfor %}
+
+{% endblock content %}

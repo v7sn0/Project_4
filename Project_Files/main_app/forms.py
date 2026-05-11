@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Inquiry, Product, CustomUser
+from .models import Inquiry, Product, InquiryStatus, CustomUser
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -19,3 +19,9 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ["item", "description", "availability"]  # missing supplier id
+
+
+class InquiryStatusForm(forms.ModelForm):
+    class Meta:
+        model = InquiryStatus
+        fields = ["inquiry", "accept", "acknowledgment"]
