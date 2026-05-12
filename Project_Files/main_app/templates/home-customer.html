@@ -9,18 +9,16 @@
   <h3>All products</h3>
 
   {% for product in products %}
-    <p>Product: {{product.item}}</p>
+    <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
+      <p><strong>Product:</strong> {{product.item}}</p>
+      <p><strong>Description:</strong> {{product.description}}</p>
 
-    {% comment %} {% if product in  user.inquiries%}
-      <button disabled> Enquired Already</button>
+      {% if product.pk in inquired_products %}
+        <button disabled>Enquired Already</button>
       {% else %}
-    <button>Enquire</button>
-    {% endif %}{% endcomment %}
-
-    <a href="/customers/{{product.pk}}/create">Create</a>
-
-
-
+        <a href="/customers/{{product.pk}}/create">Enquire</a>
+      {% endif %}
+    </div>
   {% endfor %}
 
 {% endblock content %}

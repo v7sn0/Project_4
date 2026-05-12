@@ -4,6 +4,8 @@ from .models import Inquiry, Product, InquiryStatus, CustomUser
 
 
 class CustomUserCreationForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
     class Meta:
         model = CustomUser
         fields = ("username", "email", "role")
