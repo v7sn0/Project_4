@@ -86,9 +86,13 @@ class ListProductsView(UserPassesTestMixin, ListView):
     template_name = "home-customer.html"
     context_object_name = "products"
 
-    # def get_context_data(self, **kwargs):
-    #     print(self.request.user.inquiries)
-    #     return super().get_context_data(**kwargs)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Get the list of product IDs the customer has already inquired about
+        context["inquired_products"] = Inquiry.objects.filter(
+            customer_id=self.request.user
+        ).values_list("item_id", flat=True)
+        return context
 
 
 class UploadedProductsList(UserPassesTestMixin, ListView):
