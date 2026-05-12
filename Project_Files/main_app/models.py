@@ -12,6 +12,7 @@ class CustomUser(AbstractUser):
     role = models.CharField(
         max_length=20, choices=Roles.choices, default=Roles.CUSTOMER
     )
+    email = models.EmailField(unique=True, blank=False)
 
 
 class Product(models.Model):
