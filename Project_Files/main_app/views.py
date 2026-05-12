@@ -132,7 +132,6 @@ class CustomerRequestsHistoryView(UserPassesTestMixin, ListView):
     template_name = "customers/requests-history.html"
     context_object_name = "inquiries"
 
-
     def get_queryset(self):
         return Inquiry.objects.filter(customer_id=self.request.user)
 
