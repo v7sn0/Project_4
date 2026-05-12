@@ -100,6 +100,10 @@ class UploadedProductsList(UserPassesTestMixin, ListView):
     template_name = "home-supplier.html"
     context_object_name = "products"
 
+    # Only return products that belong to the logged-in supplier
+    def get_queryset(self):
+        return Product.objects.filter(supplier_id=self.request.user)
+
 
 class DeleteProduct(UserPassesTestMixin, DeleteView):
 
