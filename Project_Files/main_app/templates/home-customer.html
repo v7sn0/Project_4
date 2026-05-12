@@ -10,12 +10,18 @@
 
   {% for product in products %}
     <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
+
+      {% if product.image %}
+        <img src="{{ product.image.url }}" width="200px">
+      {% else %}
+        <p>No image available</p>
+      {% endif %}
+
       <p><strong>Product:</strong> {{product.item}}</p>
       <p><strong>Description:</strong> {{product.description}}</p>
 
       {% if product.pk in inquired_products %}
         <button disabled>Enquired Already</button>
-
       {% else %}
         <a href="/customers/{{product.pk}}/create">Enquire</a>
       {% endif %}

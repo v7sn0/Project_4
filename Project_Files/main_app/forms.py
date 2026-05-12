@@ -24,7 +24,7 @@ class InquiryForm(forms.ModelForm):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ["item", "description", "availability"]  # missing supplier id
+        fields = ["item", "description", "availability", "image"]
 
 
 class InquiryStatusForm(forms.ModelForm):

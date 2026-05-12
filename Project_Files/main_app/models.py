@@ -20,6 +20,7 @@ class Product(models.Model):
     item = models.CharField(max_length=255)
     description = models.TextField(max_length=500)
     availability = models.BooleanField(default=False)
+    image = models.ImageField(upload_to='products/', null=True, blank=True)
 
     def __str__(self):
         return self.supplier_id
