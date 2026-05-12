@@ -18,3 +18,4 @@ urlpatterns = [
     path("customers/my-requests", views.CustomerRequestsHistoryView.as_view()),
     path("suppliers/<int:pk>/delete", views.DeleteProduct.as_view()),
 ]
+# hi

@@ -15,6 +15,7 @@
 
       {% if product.pk in inquired_products %}
         <button disabled>Enquired Already</button>
+
       {% else %}
         <a href="/customers/{{product.pk}}/create">Enquire</a>
       {% endif %}
