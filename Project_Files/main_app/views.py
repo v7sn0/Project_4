@@ -86,13 +86,9 @@ class ListProductsView(UserPassesTestMixin, ListView):
     template_name = "home-customer.html"
     context_object_name = "products"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Get the list of product IDs the customer has already inquired about
-        context["inquired_products"] = Inquiry.objects.filter(
-            customer_id=self.request.user
-        ).values_list("item_id", flat=True)
-        return context
+    # def get_context_data(self, **kwargs):
+    #     print(self.request.user.inquiries)
+    #     return super().get_context_data(**kwargs)
 
 
 class UploadedProductsList(UserPassesTestMixin, ListView):
@@ -103,10 +99,6 @@ class UploadedProductsList(UserPassesTestMixin, ListView):
     model = Product
     template_name = "home-supplier.html"
     context_object_name = "products"
-
-    # Only return products that belong to the logged-in supplier
-    def get_queryset(self):
-        return Product.objects.filter(supplier_id=self.request.user)
 
 
 class DeleteProduct(UserPassesTestMixin, DeleteView):
@@ -131,27 +123,13 @@ class ResolveInquiryView(CreateView):
     success_url = "suppliers/customers-inquires"
 
 
-class CustomerRequestsHistoryView(UserPassesTestMixin, ListView):
-
-    def test_func(self):
-        return self.request.user.role == "Customer" or self.request.user.is_superuser
-
-    model = Inquiry
-    template_name = "customers/requests-history.html"
-    context_object_name = "inquiries"
-
-
-    def get_queryset(self):
-        return Inquiry.objects.filter(customer_id=self.request.user)
-
-
 def toggle_inquiry(request, pk):
     inquiry = Inquiry.objects.get(pk=pk)
     if request.method == "POST":
         form = InquiryUpdate(request.POST, instance=inquiry)
         if form.is_valid():
             form.save()
-            return redirect("/suppliers/customers-inquires")
+            return redirect("/suppliers/customer-inquires")
     form = InquiryUpdate(instance=inquiry)
     return render(request, "suppliers/inquires-status-from.html", {"form": form})
 

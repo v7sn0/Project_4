@@ -11,15 +11,8 @@
   <nav><a href="/">Home</a>
 
   {% if user.is_authenticated %}
-    {% if user.role == "Customer" %}
-      <a href="/products/">Browse Products</a>
-      <a href="/customers/my-requests">My Requests</a>
-    {% endif %}
-    {% if user.role == "Supplier" %}
-      <a href="/listed-products">My Products</a>
-      <a href="/suppliers/create">Upload a Product</a>
-      <a href="/suppliers/customers-inquires">Customer Inquiries</a>
-    {% endif %}
+    <a href="/customers/create">Create Inquiry</a>
+    <a href="/suppliers/create">Upload a Product</a>
 
     <form method="POST" action="/auth/logout/">
       {% csrf_token %}
