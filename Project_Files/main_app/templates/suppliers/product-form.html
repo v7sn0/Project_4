@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
-{% block head %}{% endblock head %}
-
 {% block content %}
 
-  <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p}}
-<img src="/media/{{product.image}}" alt="Pic" style="width: 200px">
-    <button>Upload</button>
-  </form>
+  <div class="form-wrapper">
+    <h1>Upload Product</h1>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{form.as_p}}
+      <button type="submit">Upload</button>
+    </form>
+  </div>
 
 {% endblock content %}

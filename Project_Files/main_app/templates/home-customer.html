@@ -1,25 +1,40 @@
 {% extends "base.html" %}
 
-{% block head %}{% endblock head %}
-
 {% block content %}
 
-  <h1>Homepage</h1>
+  <h2>Available Products</h2>
 
-  <h3>All products</h3>
+  <div class="cards-grid">
+    {% for product in products %}
+      <div class="card">
 
-  {% for product in products %}
-    <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
-      <p><strong>Product:</strong> {{product.item}}</p>
-      <p><strong>Description:</strong> {{product.description}}</p>
+        {% if product.image %}
+          <img src="{{ product.image.url }}" alt="{{ product.item }}">
+        {% else %}
+          <div class="no-image">No Image</div>
+        {% endif %}
 
-      {% if product.pk in inquired_products %}
-        <button disabled>Enquired Already</button>
+        <h3>{{ product.item }}</h3>
+        <p>{{ product.description }}</p>
 
-      {% else %}
-        <a href="/customers/{{product.pk}}/create">Enquire</a>
-      {% endif %}
-    </div>
-  {% endfor %}
+        <div style="margin: 10px 0;">
+          {% if product.availability %}
+            <span class="badge badge-success">Available</span>
+          {% else %}
+            <span class="badge badge-danger">Unavailable</span>
+          {% endif %}
+        </div>
+
+        <div class="card-actions">
+          {% if product.pk in inquired_products %}
+            <button class="btn btn-disabled" disabled>Enquired Already</button>
+          {% else %}
+            <a href="/customers/{{product.pk}}/create" class="btn btn-primary">Enquire</a>
+          {% endif %}
+        </div>
+
+      </div>
+    {% endfor %}
+  </div>
 
 {% endblock content %}

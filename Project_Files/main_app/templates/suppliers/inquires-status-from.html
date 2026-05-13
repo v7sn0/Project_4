@@ -1,27 +1,27 @@
 {% extends "base.html" %}
 
-{% block head %}{% endblock head %}
-
 {% block content %}
 
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.non_field_errors }}
+  <div class="form-wrapper">
+    <h1>Resolve Inquiry</h1>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
 
-    {% for field in form %}
-      <div>
-        {{ field.label_tag }}
-        {{ field }}
-        {{ field.errors }}
-      </div>
+      {% for field in form %}
+        <div style="margin-bottom: 16px;">
+          {{ field.label_tag }}
+          {{ field }}
+          {{ field.errors }}
+        </div>
+      {% endfor %}
 
-    {% endfor %}
-
-    {% if form.instance.accept %}
-      <button type="submit" disabled>Resolved</button>
-    {% else %}
-      <button type="submit">Resolve</button>
-    {% endif %}
-  </form>
+      {% if form.instance.accept %}
+        <button type="submit" disabled class="btn btn-disabled" style="width: 100%; padding: 12px;">Already Resolved</button>
+      {% else %}
+        <button type="submit">Resolve</button>
+      {% endif %}
+    </form>
+  </div>
 
 {% endblock content %}

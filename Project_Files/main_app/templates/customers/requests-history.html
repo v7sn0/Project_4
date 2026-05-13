@@ -1,42 +1,42 @@
 {% extends "base.html" %}
 
-{% block head %}{% endblock head %}
-
 {% block content %}
 
-  <h1>My Requests History</h1>
+  <h2>My Requests History</h2>
 
   {% if inquiries %}
-
     {% for inquiry in inquiries %}
-      <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
-
+      <div class="card">
         <h3>{{ inquiry.title }}</h3>
         <p><strong>Product:</strong> {{ inquiry.item_id.item }}</p>
         <p><strong>Quantity:</strong> {{ inquiry.qty }}</p>
         <p><strong>My Request:</strong> {{ inquiry.custom_request }}</p>
         <p><strong>Date:</strong> {{ inquiry.date_of_inquiry }}</p>
 
-        <p>
-          <strong>Status:</strong>
+        <div style="margin-top: 10px;">
+          <strong>Status: </strong>
           {% if inquiry.accept %}
-            ✅ Accepted
+            <span class="badge badge-success">✅ Accepted</span>
           {% elif inquiry.acknowledgment %}
-            ❌ Rejected
+            <span class="badge badge-danger">❌ Rejected</span>
           {% else %}
-            ⏳ Pending — waiting for supplier response
+            <span class="badge badge-warning">⏳ Pending</span>
           {% endif %}
-        </p>
+        </div>
 
         {% if inquiry.acknowledgment %}
-          <p><strong>Supplier's Response:</strong> {{ inquiry.acknowledgment }}</p>
+          <div class="alert alert-info" style="margin-top: 14px;">
+            <strong>Supplier's Response:</strong> {{ inquiry.acknowledgment }}
+          </div>
         {% endif %}
 
       </div>
     {% endfor %}
 
   {% else %}
-    <p>You have not submitted any inquiries . <a href="/products/">Browse products</a></p>
+    <div class="alert alert-secondary">
+      You have not submitted any inquiries yet. <a href="/products/" style="color: #1a3a6b;">Browse products</a>
+    </div>
   {% endif %}
 
 {% endblock content %}

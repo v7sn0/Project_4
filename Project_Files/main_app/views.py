@@ -142,7 +142,7 @@ def toggle_inquiry(request, pk):
         form = InquiryUpdate(request.POST, instance=inquiry)
         if form.is_valid():
             form.save()
-            return redirect("/suppliers/customer-inquires")
+            return redirect("/suppliers/customers-inquires")
     form = InquiryUpdate(instance=inquiry)
     return render(request, "suppliers/inquires-status-from.html", {"form": form})
 

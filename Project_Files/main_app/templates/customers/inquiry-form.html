@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
-{% block head %}{% endblock head %}
-
 {% block content %}
 
-  <form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-
-    <button>Create</button>
-  </form>
+  <div class="form-wrapper">
+    <h1>Submit Inquiry</h1>
+    <form method="POST">
+      {% csrf_token %}
+      {{form.as_p}}
+      <button type="submit">Create</button>
+    </form>
+  </div>
 
 {% endblock content %}
