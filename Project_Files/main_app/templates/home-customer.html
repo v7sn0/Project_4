@@ -8,17 +8,11 @@
     {% for product in products %}
       <div class="card">
 
-  {% for product in products %}
-    <div style="border: 1px solid #ccc; padding: 10px; margin: 10px 0;">
-
-      {% if product.image %}
-        <img src="{{ product.image.url }}" width="200px">
-      {% else %}
-        <p>No image available</p>
-      {% endif %}
-
-      <p><strong>Product:</strong> {{product.item}}</p>
-      <p><strong>Description:</strong> {{product.description}}</p>
+        {% if product.image %}
+          <img src="{{ product.image.url }}" alt="{{ product.item }}">
+        {% else %}
+          <div class="no-image">No Image</div>
+        {% endif %}
 
         <h3>{{ product.item }}</h3>
         <p>{{ product.description }}</p>
