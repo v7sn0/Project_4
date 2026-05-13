@@ -18,11 +18,12 @@ class CustomUser(AbstractUser):
 class Product(models.Model):
     supplier_id = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     item = models.CharField(max_length=255)
+    image = models.ImageField(upload_to="images/", blank=False, null=False)
     description = models.TextField(max_length=500)
     availability = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.supplier_id
+        return str(self.supplier_id)
 
 
 class Inquiry(models.Model):
