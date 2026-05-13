@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 
-{% block head %}{% endblock head %}
-
 {% block content %}
 
-  <h1>Login</h1>
-  <form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-
-    <button>Log in</button>
-  </form>
+  <div class="form-wrapper">
+    <h1>Login</h1>
+    <form method="POST">
+      {% csrf_token %}
+      {{form.as_p}}
+      <button type="submit">Log in</button>
+    </form>
+    <p style="margin-top: 16px; text-align: center; font-size: 13px; color: #888;">
+      Don't have an account? <a href="/sign-up/" style="color: #1a3a6b;">Sign up</a>
+    </p>
+  </div>
 
 {% endblock content %}

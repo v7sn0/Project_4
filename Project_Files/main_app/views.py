@@ -76,7 +76,7 @@ class UpdateProductView(UserPassesTestMixin, UpdateView):
     template_name = "suppliers/product-form.html"
     success_url = "/listed-products"  # Will be changed
 
-
+# yes
 class ListProductsView(UserPassesTestMixin, ListView):
 
     def test_func(self):
@@ -142,7 +142,7 @@ def toggle_inquiry(request, pk):
         form = InquiryUpdate(request.POST, instance=inquiry)
         if form.is_valid():
             form.save()
-            return redirect("/suppliers/customer-inquires")
+            return redirect("/suppliers/customers-inquires")
     form = InquiryUpdate(instance=inquiry)
     return render(request, "suppliers/inquires-status-from.html", {"form": form})
 

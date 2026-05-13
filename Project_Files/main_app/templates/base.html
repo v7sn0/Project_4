@@ -1,39 +1,47 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>B2B Marketplace</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
   {% block head %}{% endblock head %}
 </head>
 <body>
 
-  <nav><a href="/">Home</a>
+  <nav>
+    <a href="/" class="nav-brand">B2B <span>Marketplace</span></a>
 
-  {% if user.is_authenticated %}
-    {% if user.role == "Customer" %}
-      <a href="/products/">Browse Products</a>
-      <a href="/customers/my-requests">My Requests</a>
-    {% endif %}
-    {% if user.role == "Supplier" %}
-      <a href="/listed-products">My Products</a>
-      <a href="/suppliers/create">Upload a Product</a>
-      <a href="/suppliers/customers-inquires">Customer Inquiries</a>
+    <div class="nav-links">
+      {% if user.is_authenticated %}
 
-    {% endif %}
+        {% if user.role == "Customer" %}
+          <a href="/products/">Browse Products</a>
+          <a href="/customers/my-requests">My Requests</a>
+        {% endif %}
 
-    <form method="POST" action="/auth/logout/">
-      {% csrf_token %}
-      <button>Logout</button>
-    </form>
-    {% else %}
-    <a href="/auth/login">Login</a>
-    <a href="/sign-up">Signup</a>
+        {% if user.role == "Supplier" %}
+          <a href="/listed-products">My Products</a>
+          <a href="/suppliers/create">Upload Product</a>
+          <a href="/suppliers/customers-inquires">Customer Inquiries</a>
+        {% endif %}
 
+        <form method="POST" action="/auth/logout/">
+          {% csrf_token %}
+          <button>Logout</button>
+        </form>
 
-  {% endif %}
-
+      {% else %}
+        <a href="/auth/login">Login</a>
+        <a href="/sign-up/">Signup</a>
+      {% endif %}
+    </div>
   </nav>
-  {% block content %}{% endblock content %}
+
+  <div class="main-content">
+    {% block content %}{% endblock content %}
+  </div>
+
 </body>
 </html>

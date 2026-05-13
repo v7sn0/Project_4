@@ -1,38 +1,37 @@
 {% extends "base.html" %}
 
-{% block head %}{% endblock head %}\
-
 {% block content %}
 
-  <h1>Customers Inquires</h1>
+  <h2>Customer Inquiries</h2>
 
-    <h1>Pending Queries</h1>
-
-{% for Inquiry in inquires %}
-
-
-  {% if not Inquiry.accept %}
-
-  <div>
-      <h3>{{Inquiry.title}}</h3>
-      <p>{{Inquiry.qty}}</p>
-      <a href="/suppliers/inquiry/{{Inquiry.pk}}">View Details</a>
-    </div>
-  {% endif %}
-
-  {% endfor %}
-<hr>
-  <h1>Resolved Inquiries</h1>
+  <h3 style="margin-top: 30px; color: #c0392b;">⏳ Pending Inquiries</h3>
+  <hr>
 
   {% for Inquiry in inquires %}
-{% if Inquiry.accept %}
-<div>
-      <h3>{{Inquiry.title}}</h3>
-      <p>{{Inquiry.qty}}</p>
+    {% if not Inquiry.accept %}
+      <div class="card">
+        <h3>{{ Inquiry.title }}</h3>
+        <p><strong>Quantity:</strong> {{ Inquiry.qty }}</p>
+        <div class="card-actions">
+          <a href="/suppliers/inquiry/{{ Inquiry.pk }}" class="btn btn-primary">View & Resolve</a>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
 
-      <a href="/suppliers/inquiry/{{Inquiry.pk}}">View Details</a>
-    </div>
-  {% endif %}
+  <h3 style="margin-top: 30px; color: #1e8449;">✅ Resolved Inquiries</h3>
+  <hr>
+
+  {% for Inquiry in inquires %}
+    {% if Inquiry.accept %}
+      <div class="card">
+        <h3>{{ Inquiry.title }}</h3>
+        <p><strong>Quantity:</strong> {{ Inquiry.qty }}</p>
+        <div class="card-actions">
+          <a href="/suppliers/inquiry/{{ Inquiry.pk }}" class="btn btn-success">View Details</a>
+        </div>
+      </div>
+    {% endif %}
   {% endfor %}
 
 {% endblock content %}

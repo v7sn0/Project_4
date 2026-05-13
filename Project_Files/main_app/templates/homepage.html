@@ -2,22 +2,26 @@
 
 {% block content %}
 
-  <h1>Welcome to B2B Marketplace</h1>
+  <div class="hero">
+    <h1>Welcome to B2B Marketplace</h1>
+    <p>Connecting suppliers and businesses — directly and efficiently.</p>
 
-  {% if user.is_authenticated %}
-    <p>Hello, {{ user.username }}! You are logged in as a {{ user.role }}.</p>
-
-    {% if user.role == "Customer" %}
-      <a href="/products/">Browse Products</a>
+    {% if user.is_authenticated %}
+      <p>Hello, <strong>{{ user.username }}</strong>! You are logged in as a <strong>{{ user.role }}</strong>.</p>
+      <div class="hero-buttons" style="margin-top: 24px;">
+        {% if user.role == "Customer" %}
+          <a href="/products/" class="btn btn-primary" style="font-size: 16px; padding: 14px 32px;">Browse Products</a>
+        {% endif %}
+        {% if user.role == "Supplier" %}
+          <a href="/listed-products" class="btn btn-primary" style="font-size: 16px; padding: 14px 32px;">My Products</a>
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="hero-buttons">
+        <a href="/auth/login" class="btn btn-primary" style="font-size: 16px; padding: 14px 32px;">Login</a>
+        <a href="/sign-up/" class="btn btn-success" style="font-size: 16px; padding: 14px 32px;">Sign Up</a>
+      </div>
     {% endif %}
-
-    {% if user.role == "Supplier" %}
-      <a href="/listed-products">My Products</a>
-
-    {% endif %}
-
-  {% else %}
-    <p>Please <a href="/auth/login">login</a> or <a href="/sign-up/">sign up</a> to get started.</p>
-  {% endif %}
+  </div>
 
 {% endblock content %}
