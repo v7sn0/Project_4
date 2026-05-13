@@ -2,6 +2,7 @@
 
 {% block content %}
 
+<<<<<<< HEAD
   <div class="form-wrapper">
     <h1>Upload Product</h1>
     <form method="POST" enctype="multipart/form-data">
@@ -10,5 +11,13 @@
       <button type="submit">Upload</button>
     </form>
   </div>
+=======
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+
+    <button>Upload</button>
+  </form>
+>>>>>>> 0d27bf3e06325fba4cd937e1cf224a743940528c
 
 {% endblock content %}

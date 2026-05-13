@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser
 
-# Create your models here.
+# Create your models hereok.
 
 
 class CustomUser(AbstractUser):
@@ -21,6 +21,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to="images/", blank=False, null=False)
     description = models.TextField(max_length=500)
     availability = models.BooleanField(default=False)
+    image = models.ImageField(upload_to='products/', null=True, blank=True)
 
     def __str__(self):
         return str(self.supplier_id)

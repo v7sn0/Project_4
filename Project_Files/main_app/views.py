@@ -76,7 +76,7 @@ class UpdateProductView(UserPassesTestMixin, UpdateView):
     template_name = "suppliers/product-form.html"
     success_url = "/listed-products"  # Will be changed
 
-
+# yes
 class ListProductsView(UserPassesTestMixin, ListView):
 
     def test_func(self):
