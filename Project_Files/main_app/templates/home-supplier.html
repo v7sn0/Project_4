@@ -10,6 +10,7 @@
 
   {% for product in products %}
     <p> {{product.item}} </p>
+    <img src="/media/{{product.image}}" alt="Pic" style="width: 200px; height: 200px">
 
     <a href="suppliers/{{product.pk}}/update">Update</a>
     <form action="/suppliers/{{product.pk}}/delete" method="post">{% csrf_token %}<button>Delete</button></form>
