@@ -1,4 +1,4 @@
-# B@B Marketplace #
+# B2B Marketplace #
 
 ## Date 5/7/2026 ##
 
